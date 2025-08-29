@@ -66,4 +66,12 @@ app.post('/bfhl', (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`api running on ${port}`));
+
+// Only listen when running locally
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => console.log(`api running on ${port}`));
+}
+
+// Export for Vercel
+module.exports = app;
+
