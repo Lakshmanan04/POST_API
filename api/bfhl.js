@@ -1,5 +1,4 @@
 const express = require('express');
-const serverless = require('serverless-http');
 const app = express();
 app.use(express.json());
 
@@ -14,7 +13,7 @@ function is_num(str) {
 app.post('/bfhl', (req, res) => {
   try {
     const d = req.body.data;
-    if (!Array.isArray(d)) return res.status(400).json({ is_success: false, error: "invalid input" });
+    if (!Array.isArray(d)) return res.status(400).json({ is_success: false, error: "Invalid input" });
 
     const even = [], odd = [], alpha = [], special = [];
     let total = 0, chars = [];
@@ -33,7 +32,9 @@ app.post('/bfhl', (req, res) => {
           if (/[a-zA-Z]/.test(c)) {
             alpha.push(c.toUpperCase());
             chars.push(c);
-          } else if (!/\d/.test(c)) special.push(c);
+          } else if (!/\d/.test(c)) {
+            special.push(c);
+          }
         }
       }
     });
@@ -54,9 +55,10 @@ app.post('/bfhl', (req, res) => {
       sum: String(total),
       concat_string: result.join('')
     });
+
   } catch (e) {
     res.status(500).json({ is_success: false, error: e.message });
   }
 });
 
-module.exports.handler = serverless(app);
+module.exports = app;
