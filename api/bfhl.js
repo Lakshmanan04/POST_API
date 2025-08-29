@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000; // Render assigns a PORT
+
 const uid = "Lakshmanan_L_14112004";
 const mail = "lakshmanan.l2022@vitstudent.ac.in";
 const roll = "22BCE5161";
@@ -61,4 +63,6 @@ app.post('/bfhl', (req, res) => {
   }
 });
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
